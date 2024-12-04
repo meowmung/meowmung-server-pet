@@ -1,6 +1,6 @@
 package com.example.pet.dto.use;
 
-public record SendAdditionalPetInfo(
+public record SendAdditionalPetInfoDto(
         Long petId,
         Integer weight,
         Integer foodCount,

@@ -1,6 +1,5 @@
 package com.example.pet.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,9 +35,6 @@ public class RecommendedResults {
 
     @Column(name = "insurance_id")
     private String insuranceId;
-
-//    @Column(name = "term_id")
-//    private String termId;
 
     @OneToMany(mappedBy = "recommendedResults")
     private List<RecommendedTerms> recommendedTerms = new ArrayList<>();
