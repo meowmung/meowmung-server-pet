@@ -5,10 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,11 +32,4 @@ public class AdditionalInfo {
     @Column(name = "additional_info_current_disease", nullable = true)
     private String currentDisease;
 
-//    @OneToOne
-//    @JoinColumn(name = "pet_id", nullable = true)
-//    private Pet pet;
-
-//    @OneToOne
-//    @JoinColumn(name = "disease_name", nullable = false)
-//    private DiseaseCode diseaseCode;
 }

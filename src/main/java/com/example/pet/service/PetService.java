@@ -36,7 +36,6 @@ public class PetService {
         Breed breed = breedService.getBreedCode(petRequest.breedName());
         Pet pet = petRequest.toEntity(breed, userId);
         petRepository.save(pet);
-        System.out.println(pet);
         return PetResponse.fromEntity(pet);
     }
 
@@ -67,8 +66,6 @@ public class PetService {
         }
         pet.addConcerned(concerneds);
         petRepository.save(pet);
-        System.out.println(pet.getPetName());
-        System.out.println(pet.getConcerneds());
 
         // 보험 결과 저장
         for (RecommendResultsDto recommendResultsDto : firstRecommendedDto.recommendResultsDto()) {
@@ -97,16 +94,18 @@ public class PetService {
     }
 
     // 2차 후 펫 정보 저장, 보험 결과 저장
-    public String saveAdditionalUpdatedPet(SecondRecommendedDto secondRecommendedDto) {
-        Pet pet = petRepository.findById(secondRecommendedDto.sendAdditionalPetInfo().petId())
-                .orElseThrow(() -> new RuntimeException(
-                        "펫ID " + secondRecommendedDto.sendAdditionalPetInfo().petId() + " not found."));
+    public String saveAdditionalUpdatedPet(SecondRecommendedDto SecondRecommendedDto) {
+        System.out.println(SecondRecommendedDto.sendAdditionalPetInfoDto().petId());
 
+        Pet pet = petRepository.findById(SecondRecommendedDto.sendAdditionalPetInfoDto().petId())
+                .orElseThrow(() -> new RuntimeException(
+                        "펫ID " + SecondRecommendedDto.sendAdditionalPetInfoDto().petId() + " not found."));
+        System.out.println("펫id" + pet.getPetId());
         // 펫 정보 저장
         AdditionalInfo additionalInfo = AdditionalInfo.builder()
-                .weight(secondRecommendedDto.sendAdditionalPetInfo().weight())
-                .foodCount(secondRecommendedDto.sendAdditionalPetInfo().foodCount())
-                .currentDisease(secondRecommendedDto.sendAdditionalPetInfo().currentDisease())
+                .weight(SecondRecommendedDto.sendAdditionalPetInfoDto().weight())
+                .foodCount(SecondRecommendedDto.sendAdditionalPetInfoDto().foodCount())
+                .currentDisease(SecondRecommendedDto.sendAdditionalPetInfoDto().currentDisease())
                 .build();
         additionalInfoRepository.save(additionalInfo);
         pet.addAdditionalInfo(additionalInfo);
@@ -114,7 +113,7 @@ public class PetService {
 
         // 보험 정보 저장
         List<RecommendedTerms> recommendedTermsList = new ArrayList<>();
-        for (String termId : secondRecommendedDto.recommendResultsDto().termId()) {
+        for (String termId : SecondRecommendedDto.recommendResultsDto().termId()) {
             RecommendedTerms recommendedTerms = RecommendedTerms.builder()
                     .termId(termId)
                     .build();
@@ -124,8 +123,8 @@ public class PetService {
 
         RecommendedResults recommendedResults = RecommendedResults.builder()
                 .pet(pet)
-                .level(secondRecommendedDto.recommendResultsDto().level())
-                .insuranceId(secondRecommendedDto.recommendResultsDto().insuranceId())
+                .level(SecondRecommendedDto.recommendResultsDto().level())
+                .insuranceId(SecondRecommendedDto.recommendResultsDto().insuranceId())
                 .recommendedTerms(recommendedTermsList)
                 .build();
         recommendedTermsList.forEach(recommendedTerms -> {

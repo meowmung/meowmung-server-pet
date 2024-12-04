@@ -7,7 +7,6 @@ import com.example.pet.dto.use.SecondRecommendedDto;
 import com.example.pet.service.PetService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +23,8 @@ public class PetController {
 
     // 펫 등록
     @PostMapping
-    public ResponseEntity<PetResponse> enrollPet (@RequestBody PetRequest petRequest,
-                                                  @RequestHeader(name = "X-Authorized-memberId")Long userId) {
+    public ResponseEntity<PetResponse> enrollPet(@RequestBody PetRequest petRequest,
+                                                 @RequestHeader(name = "X-Authorization-memberId") Long userId) {
         PetResponse savedPet = petService.savePet(petRequest, userId);
         return ResponseEntity.ok(savedPet);
     }
@@ -33,7 +32,7 @@ public class PetController {
     // 펫 정보 주기
     // 1. 해당 사용자의 등록된 모든 펫 조회
     @GetMapping
-    public List<PetResponse> getAllPet(@RequestHeader(name = "X-Authorized-memberId") Long userId) {
+    public List<PetResponse> getAllPet(@RequestHeader(name = "X-Authorization-memberId") Long userId) {
         return petService.getAllPetsByUserId(userId);
     }
 
@@ -47,17 +46,15 @@ public class PetController {
     // 1차 후
     // 우려 질병 저장, 1차 결과 저장
     @PostMapping("/recommend")
-    public String updatePetInfo (@RequestBody FirstRecommendedDto firstRecommendedDto) {
+    public String updatePetInfo(@RequestBody FirstRecommendedDto firstRecommendedDto) {
         petService.saveUpdatedPet(firstRecommendedDto);
-//        return ResponseEntity.ok("ㅇㅇ");
         return "저장";
     }
 
     // 2차 후
     @PostMapping("/additional")
-    public String additionalUpdatedPet (@RequestBody SecondRecommendedDto secondRecommendedDto) {
-        petService.saveAdditionalUpdatedPet(secondRecommendedDto);
-//        return ResponseEntity.ok(pet);
+    public String additionalUpdatedPet(@RequestBody SecondRecommendedDto SecondRecommendedDto) {
+        petService.saveAdditionalUpdatedPet(SecondRecommendedDto);
         return "저장";
     }
 

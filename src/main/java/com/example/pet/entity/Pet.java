@@ -46,7 +46,7 @@ public class Pet {
     private Boolean neutered;
 
     @OneToOne
-    @JoinColumn(name = "breed_name", nullable = false)
+    @JoinColumn(name = "breed_name", nullable = false, unique = false)
     private Breed breed;
 
     @OneToMany(mappedBy = "pet")
