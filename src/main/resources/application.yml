@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: pet
+
+  profiles:
+    active: dev
+
+server:
+  port: 8086
