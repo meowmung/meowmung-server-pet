@@ -37,6 +37,7 @@ public class RecommendedResults {
     private String insuranceId;
 
     @OneToMany(mappedBy = "recommendedResults")
+    @Builder.Default
     private List<RecommendedTerms> recommendedTerms = new ArrayList<>();
 
     public void addRecommendedTerms(RecommendedTerms term) {
