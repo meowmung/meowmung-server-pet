@@ -34,6 +34,9 @@ public class PetService {
     // 펫 정보 등록
     public PetResponse savePet(PetRequest petRequest, Long userId) {
         Breed breed = breedService.getBreedCode(petRequest.breedName());
+        System.out.println(breed.getCode());
+        System.out.println(breed.getName());
+        System.out.println(breed.getType());
         Pet pet = petRequest.toEntity(breed, userId);
         petRepository.save(pet);
         return PetResponse.fromEntity(pet);

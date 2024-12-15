@@ -14,7 +14,7 @@ public class BreedServiceImpl implements BreedService {
     // 종 코드 찾기
     public Breed getBreedCode(String breedName) {
         System.out.println(breedName);
-        return breedRepository.findById(breedName)
+        return breedRepository.findByName(breedName)
                 .orElseThrow(() -> new RuntimeException("그런 종 없는데요"));
     }
 

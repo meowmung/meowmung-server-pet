@@ -51,6 +51,12 @@ public class PetController {
         return "저장";
     }
 
+//    @GetMapping("/recommend")
+//    public FirstResultResponse getFirstResponse() {
+//        FirstResultResponse firstResultResponse = FirstResultResponse.fromEntity()
+//        return
+//    }
+
     // 2차 후
     @PostMapping("/additional")
     public String additionalUpdatedPet(@RequestBody SecondRecommendedDto SecondRecommendedDto) {
